@@ -16,7 +16,7 @@ class MyClient(discord.Client):
 
 if __name__ == '__main__':
     def read_token():
-        with open(f'{ROOT_PATH}/token.txt', 'r') as file:
+        with open(f'{ROOT_PATH}/token', 'r') as file:
             return file.read()
 
     token = read_token()

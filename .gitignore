@@ -140,4 +140,4 @@ cython_debug/
 .idea
 
 # Bot token
-token.txt
+token
