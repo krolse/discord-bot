@@ -106,6 +106,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
+wsl-venv/
 env/
 venv/
 ENV/
@@ -141,3 +142,7 @@ cython_debug/
 
 # Bot token
 token
+
+# Sounds
+sounds/
+!sounds/.gitkeep
