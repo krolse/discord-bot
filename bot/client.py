@@ -17,7 +17,7 @@ class Client(discord.Client):
         print('Logged on as', self.user)
         load_opus()
 
-    async def on_message(self, message):
+    async def on_message(self, message: discord.Message):
         if message.author == self.user:
             return
 
@@ -32,6 +32,17 @@ class Client(discord.Client):
             with open(f'{ROOT_PATH}/secret/hsl', 'r') as hsl:
                 await message.channel.send(f'{hsl.read()}')
             await message.delete()
+
+        if message.content.split()[0] == f'{PREFIX}addsound':
+            if message.attachments:
+                for attachment in message.attachments:
+                    await attachment.save(f'{ROOT_PATH}/sounds/{attachment.filename}', use_cached=True)
+            attachments_string = ",".join([attachment.filename for attachment in message.attachments])
+            print(f'Saved attachments {attachments_string}')
+            await message.channel.send(f'Saved sound{"s" if len(message.attachments) > 1 else ""}: {attachments_string}')
+            await message.delete()
+            self.sounds = import_sounds()
+            return
 
         if message.content[1:] in self.sounds:
             try:
