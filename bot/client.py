@@ -4,8 +4,8 @@ import discord
 from discord import ClientException
 from discord.opus import OpusNotLoaded
 
-from definitions import PREFIX, ROOT_PATH
 from bot.helpers import import_sounds, load_opus
+from definitions import PREFIX, ROOT_PATH
 
 
 class Client(discord.Client):
@@ -36,6 +36,7 @@ class Client(discord.Client):
         if message.content[1:] in self.sounds:
             try:
                 voice_channel = message.author.voice.channel
+                await message.delete()
             except AttributeError:
                 await message.channel.send('You\'re not in a voice channel, ya frig.')
                 await message.delete()
@@ -50,10 +51,9 @@ class Client(discord.Client):
 
                 except ClientException:
                     print("Already playing audio or not connected")
-                    await voice.disconnect()
                 except TypeError:
                     print("Source is not an audio source or 'after' is not callable")
-                    await voice.disconnect()
                 except OpusNotLoaded:
                     print("Source is not opus encoded and opus is not loaded")
+                except (ClientException, OpusNotLoaded, TypeError):
                     await voice.disconnect()
