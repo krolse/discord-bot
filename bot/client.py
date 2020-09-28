@@ -29,8 +29,8 @@ class Client(discord.Client):
             await message.delete()
 
         if message.content == f'{PREFIX}hsl':
-            with open(f'{ROOT_PATH}/secret', 'r') as secret:
-                await message.channel.send(f'{secret.read()}')
+            with open(f'{ROOT_PATH}/secret/hsl', 'r') as hsl:
+                await message.channel.send(f'{hsl.read()}')
             await message.delete()
 
         if message.content[1:] in self.sounds:
