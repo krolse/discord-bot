@@ -77,5 +77,5 @@ class Client(discord.Client):
         if message.content.startswith(f'{PREFIX}addsound'):
             await self.add_sound(message)
 
-        if message.content[1:] in self.sounds:
+        if message.content.startswith(PREFIX) and message.content[1:] in self.sounds:
             await self.play_sound(message)
