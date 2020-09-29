@@ -13,7 +13,7 @@ class Client(discord.Client):
         super().__init__()
         self.sounds = import_sounds()
 
-    def add_sound(self, message: discord.Message):
+    async def add_sound(self, message: discord.Message):
         if message.attachments:
             for attachment in message.attachments:
                 await attachment.save(f'{ROOT_PATH}/sounds/{attachment.filename}', use_cached=True)
@@ -25,7 +25,7 @@ class Client(discord.Client):
         return
 
     @staticmethod
-    def play_sound(message):
+    async def play_sound(message):
         try:
             voice_channel = message.author.voice.channel
             await message.delete()
@@ -75,7 +75,7 @@ class Client(discord.Client):
             await message.delete()
 
         if message.content.startswith(f'{PREFIX}addsound'):
-            self.add_sound(message)
+            await self.add_sound(message)
 
         if message.content[1:] in self.sounds:
-            self.play_sound(message)
+            await self.play_sound(message)
