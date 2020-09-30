@@ -21,7 +21,7 @@ class Sound(commands.Cog):
                 await attachment.save(f'{ROOT_PATH}/sounds/{attachment.filename}', use_cached=True)
         attachments_string = ",".join([attachment.filename for attachment in ctx.message.attachments])
         print(f'Saved attachments: {attachments_string}')
-        await ctx.message.channel.send(
+        await ctx.send(
             f'Saved sound{"s" if len(ctx.message.attachments) > 1 else ""}: {attachments_string}')
         await ctx.message.delete()
         self.sounds = import_sounds()
@@ -60,20 +60,20 @@ class Misc(commands.Cog):
 
     @commands.command(name='østers')
     async def oyster(self, ctx: commands.Context):
-        await ctx.message.channel.send('> *Av østers får man sår <:nik:268402644966572032>*')
+        await ctx.send('> *Av østers får man sår <:nik:268402644966572032>*')
         await ctx.message.delete()
-        print("hello")
 
     @commands.command()
     async def lysk(self, ctx: commands.Context):
-        await ctx.message.channel.send('> *Har du lysk, har du lår <:nik:268402644966572032>*')
+        await ctx.send('> *Har du lysk, har du lår <:nik:268402644966572032>*')
         await ctx.message.delete()
 
     @commands.command()
     async def hsl(self, ctx: commands.Context):
         with open(f'{ROOT_PATH}/secret/hsl', 'r') as hsl:
-            await ctx.message.channel.send(f'{hsl.read()}', delete_after=20)
+            await ctx.send(f'{hsl.read()}', delete_after=20)
         await ctx.message.delete()
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(Sound(bot))
