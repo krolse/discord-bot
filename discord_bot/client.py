@@ -3,8 +3,7 @@ import asyncio
 import discord
 from discord import ClientException
 from discord.opus import OpusNotLoaded
-
-from bot.helpers import import_sounds, load_opus
+from discord_bot.helpers import import_sounds, load_opus
 from definitions import PREFIX, ROOT_PATH
 
 
