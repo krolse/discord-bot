@@ -71,7 +71,7 @@ class Client(discord.Client):
 
         if message.content == f'{PREFIX}hsl':
             with open(f'{ROOT_PATH}/secret/hsl', 'r') as hsl:
-                await message.channel.send(f'{hsl.read()}')
+                await message.channel.send(f'{hsl.read()}', delete_after=20)
             await message.delete()
 
         if message.content.startswith(f'{PREFIX}addsound'):
