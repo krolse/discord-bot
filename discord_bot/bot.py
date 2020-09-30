@@ -2,6 +2,7 @@ import asyncio
 
 import discord
 from discord import ClientException
+from discord.ext.commands import CommandNotFound
 from discord.opus import OpusNotLoaded
 from discord.ext import commands
 from discord_bot.helpers import import_sounds, load_opus
@@ -33,7 +34,7 @@ class Bot(commands.Bot):
                 voice_channel = message.author.voice.channel
                 await message.delete()
             except AttributeError:
-                await message.channel.send('You\'re not in a voice channel, ya frig.')
+                await message.channel.send('You\'re not in a voice channel, ya frig.', delete_after=10)
                 await message.delete()
                 return
             if voice_channel:
@@ -92,3 +93,13 @@ class Bot(commands.Bot):
 
         if self._is_play_sound_command(message):
             await self.get_cog('Sound').play_sound(message)
+            return
+
+        await self.process_commands(message)
+
+    async def on_command_error(self, context, exception):
+        if isinstance(exception, CommandNotFound):
+            await context.message.channel.send(f"I don't know the command `{context.message.content}`", delete_after=10)
+            await context.message.delete()
+        else:
+            raise exception
