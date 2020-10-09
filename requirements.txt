@@ -3,7 +3,7 @@ async-timeout==3.0.1
 attrs==20.2.0
 cffi==1.14.3
 chardet==3.0.4
-discord.py[voice]==1.4.1
+discord.py==1.5.0
 idna==2.10
 multidict==4.7.6
 pycparser==2.20
