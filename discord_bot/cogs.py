@@ -57,13 +57,13 @@ class Sound(commands.Cog):
 class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
+    
     @commands.command(name='østers')
     async def oyster(self, ctx: commands.Context):
         await ctx.send('> *Av østers får man sår <:nik:268402644966572032>*')
         await ctx.message.delete()
 
-    @commands.command()
+    @commands.command(aliases=['lår'])
     async def lysk(self, ctx: commands.Context):
         await ctx.send('> *Har du lysk, har du lår <:nik:268402644966572032>*')
         await ctx.message.delete()
@@ -71,7 +71,17 @@ class Misc(commands.Cog):
     @commands.command()
     async def hsl(self, ctx: commands.Context):
         with open(f'{ROOT_PATH}/secret/hsl', 'r') as hsl:
-            await ctx.send(f'{hsl.read()}', delete_after=20)
+            embed = discord.Embed(title="Hurp Spelunky League 2",
+                                  url=f"{hsl.read()}",
+                                  description="The SECOND one", color=0xffff00)
+        embed.set_thumbnail(url="https://i.imgur.com/TJRysP2.png")
+        await ctx.send(embed=embed, delete_after=20)
+        await ctx.message.delete()
+
+    @commands.command()
+    async def btb(self, ctx):
+        await ctx.send(f'_It is time._')
+        await ctx.send('<:btb1:648513104849928213><:btb2:648513104979951626><:btb3:648513105088872448>')
         await ctx.message.delete()
 
 
